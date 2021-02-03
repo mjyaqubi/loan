@@ -1,0 +1,16 @@
+service:
+  name: loan
+  description: Loan service
+  version: 0.0.1
+  url:
+    base: /api
+    docs: /doc
+
+server:
+  host: localhost
+  port: 3000
+
+security:
+  docs:
+    username: DOCS_USERNAME
+    password: DOCS_PASSWORD

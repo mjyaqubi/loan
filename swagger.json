@@ -1,0 +1,498 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "loan",
+    "description": "Loan service | [swagger.json](swagger.json)",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "authorization"
+      }
+    },
+    "schemas": {
+      "CreateLoanRequestDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "rate": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "amount",
+          "rate",
+          "date"
+        ]
+      },
+      "LoanResponseDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "rate": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "amount",
+          "rate",
+          "date"
+        ]
+      },
+      "BadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Bad request"
+          },
+          "status": {
+            "type": "number",
+            "example": 400
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Unauthorized request"
+          },
+          "status": {
+            "type": "number",
+            "example": 401
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Internal Server Error"
+          },
+          "status": {
+            "type": "number",
+            "example": 500
+          }
+        }
+      },
+      "BadGatewayResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Bad gateway"
+          },
+          "status": {
+            "type": "number",
+            "example": 502
+          }
+        }
+      },
+      "CreatePaymentRequestDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "amount",
+          "date"
+        ]
+      },
+      "PaymentResponseDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "afterInterest": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "amount",
+          "afterInterest",
+          "date"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/api/loan": {
+      "post": {
+        "operationId": "loan-create",
+        "summary": "Create",
+        "description": "Create new loan",
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLoanRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal communication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadGatewayResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "loan-get",
+        "summary": "Get",
+        "description": "Get loan details",
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LoanResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal communication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadGatewayResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/payment": {
+      "post": {
+        "operationId": "loan-payment",
+        "summary": "Payment",
+        "description": "Create new loan payment",
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal communication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadGatewayResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/balance": {
+      "get": {
+        "operationId": "loan-balance",
+        "summary": "Get",
+        "description": "Get loan balance",
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal communication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadGatewayResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/{id}": {
+      "delete": {
+        "operationId": "loan-delete",
+        "summary": "Delete",
+        "description": "Delete loan details",
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request processed successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal communication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadGatewayResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
